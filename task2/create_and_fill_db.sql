@@ -6,7 +6,7 @@ CREATE TABLE IF NOT EXISTS credits(amount INT,
                                    caption VARCHAR(6), 
                                    user_id INT, 
                                    FOREIGN KEY(user_id) REFERENCES users(id) ON DELETE CASCADE);
-CREATE TABLE IF NOT EXISTS alpha(
+CREATE TABLE IF NOT EXISTS result(
     user_id INT,
     docdate DATETIME,
     remainder INT,
