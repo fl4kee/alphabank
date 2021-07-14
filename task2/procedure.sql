@@ -18,7 +18,7 @@ DECLARE CONTINUE HANDLER FOR NOT FOUND SET finished = 1;
 
 OPEN user_data;
 # Чистим таблицу
-DELETE FROM alpha;
+DELETE FROM result;
 # Счетчик пользователей 
 SET user_count = 1;
 
@@ -32,11 +32,11 @@ outer_loop: LOOP
             # Во внутреннем цикле проход по одному пользователю
             inner_loop: LOOP
                 IF amount_c < remainder THEN
-                    INSERT INTO alpha(user_id, docdate, remainder, caption) VALUES(user_id_c, docdate_c, amount_c, caption_c);
+                    INSERT INTO result(user_id, docdate, remainder, caption) VALUES(user_id_c, docdate_c, amount_c, caption_c);
                     SET remainder = remainder - amount_c;
                     FETCH user_data INTO user_id_c, amount_c, val_c, docdate_c, caption_c;
                 ELSE 
-                    INSERT INTO alpha(user_id, docdate, remainder, caption) VALUES(user_id_c, docdate_c, remainder, caption_c);
+                    INSERT INTO result(user_id, docdate, remainder, caption) VALUES(user_id_c, docdate_c, remainder, caption_c);
                     SET user_count = user_count + 1;
                     LEAVE inner_loop;
                 END IF;
@@ -45,7 +45,7 @@ outer_loop: LOOP
 END LOOP;
 CLOSE user_data;
 
-SELECT * FROM alpha;
+SELECT * FROM result;
 END //
 DELIMITER ;
 
