@@ -51,6 +51,3 @@ DELIMITER ;
 
 
 
-
-
-# user_id, docdate, amount, caption, 
