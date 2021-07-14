@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+
+</head>
+<body>
+    <div class="container d-flex justify-content-around p-3">
+      <a class="btn btn-outline-primary" href="#home" role="button">Начало</a>
+      <a class="btn btn-outline-primary" href="#top5" role="button">Топ 5</a>
+      <a class="btn btn-outline-primary" href="#all" role="button">Весь список</a>
+    
+    </div>
+<!---------------------------- Home page -------------------------------->
+    <div class="container page" id="home">
+        <h1>Главная страница</h1>
+    </div>
+<!---------------------------- Top 5 -------------------------------->
+    <div class="container page" id="top5">
+        <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Место</th>
+                <th scope="col">ФИО</th>
+                <th scope="col">Статус</th>
+                <th scope="col">Опыт</th>
+                <th scope="col">Монеты</th>
+              </tr>
+            </thead>
+            <tbody>
+            <%
+              let place = 0
+              let last = {}
+              let count = 0
+            %> 
+            <% for(const unit of allUnits) {%>
+            <tr>
+                  <% if(unit.coins === last.coins && unit.experience === last.experience ){ %>
+                    <td><%= place %> </td>
+                  <% }else{ %>
+                    <% place++ %>
+                    <% if(place === 6){%>
+                      <% break %>  
+                    <% }else{ %>
+                      <td><%= place %> </td>
+                      <% } %>    
+                  <% } %>   
+                <td><%= unit.fio %> </td>
+                <td><%= unit.level %> </td>
+                <td><%= unit.experience %> </td>
+                <td><%= unit.coins %> </td>
+            </tr>
+            <% 
+              last.experience = unit.experience 
+              last.coins = unit.coins
+            %> 
+            <% } %>  
+            </tbody>
+          </table> 
+    </div>
+<!---------------------------- All units -------------------------------->
+    <div class="container page" id="all">
+        <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Место</th>
+                <th scope="col">ФИО</th>
+                <th scope="col">Статус</th>
+                <th scope="col">Опыт</th>
+                <th scope="col">Монеты</th>
+              </tr>
+            </thead>
+            <tbody>
+            <%
+              place = 0
+              last = {}
+            %> 
+            <% for(const unit of allUnits) {%>
+            <tr>
+                <td> <%=unit.coins === last.coins && unit.experience === last.experience ? place : ++place %></td>
+                <td><%= unit.fio %> </td>
+                <td><%= unit.level %> </td>
+                <td><%= unit.experience %> </td>
+                <td><%= unit.coins %> </td>
+            </tr>
+            <% 
+              last.experience = unit.experience 
+              last.coins = unit.coins
+            %> 
+            <% } %>  
+            </tbody>
+          </table> 
+    </div>
+
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/main.js"></script>
+</body>
+</html>
